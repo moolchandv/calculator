@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator By Moolchand</title>
-
+    <title>Calculator App</title>
+    
 
 <style type="text/css">
 
@@ -18,17 +18,24 @@
 }
 
 body{
-    width: 100%;
-    height: 100vh;
+width: 100%;
+    min-height: 100vh;
+    padding-top: 90px;
+    padding-bottom: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: linear-gradient(45deg, #1f0606, #3a4452);
 }
+
+
 .calculator{
+    width: 100%;
+    max-width: 360px;
     border: 1px solid #717377;
-    padding: 20px;
+    padding: 10px;
     border-radius: 20px;
+    justify-content: space-between;
     background: transparent;
     box-shadow: 0px 3px 15px rgba(113, 115, 119, 0.5);
 }
@@ -36,10 +43,10 @@ input{
     width: 100%;
     border: none;
     padding:20px;
-    margin-top: 10px;
+    margin-top: 8px;
     background: transparent;
-    box-shadow: 0px 3px 15px rgbs(84, 84, 84,);
-    font-size: 40px;
+    box-shadow: 0px 3px 15px rgba(84, 84, 84, 0.5);
+    font-size: clamp(20px, 5vw, 28px);
     text-align: right;
     cursor: pointer;
     color: #ffffff;
@@ -50,15 +57,15 @@ input::placeholder{
 }
 
 button{
+    width: 22%;
+    height: 45px;
+    margin: 1%;
     border: none;
-    width: 60px;
-    height: 50px;
-    margin: 10px;
     border-radius: 50px;
     background: transparent;
     color: #ffffff;
-    font-size: 20px;
-    box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1);
+    font-size: 16px;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.1);
     cursor: pointer;
 }
 .equalbutton{
@@ -67,22 +74,86 @@ button{
 .operator{
     color: yellowgreen;
 }
-
-
-    
+.site-footer{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
+    text-align: center;
+    background: rgba(0,0,0,0.4);
+    color: #ffffff;
+    font-size: 14px;
 }
 
-</style>
+.site-footer p{
+    margin: 0;
+    opacity: 0.8;
+}
+.site-header{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    color: #ffffff;
+    z-index: 1000;
+}
 
+.header-left{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo{
+    font-size: 22px;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.header-right a{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 6px 12px;
+    border: 3px solid rgba(3, 121, 33, 0.4);
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.header-right a:hover{
+    background: #ffffff;
+    color: #000000;
+}
+</style>
 
 
 </head>
 <body>
-    
+
+<header class="site-header">
+  <div class="header-left">
+    <span class="logo">🔢</span>
+    <span class="title">Calculator App</span>
+  </div>
+
+  <div class="header-right">
+    <a href="https://github.com/moolchandv" target="_blank">GitHub</a>
+  </div>
+</header>    
     
 
     <div class="calculator">
-    <input type="text" placeholder="0" id="inputbox">
+    <input type="text" placeholder="0" id="inputbox" readonly>
     <div>
     <button class="operator">AC</button>
     <button class="operator">DEL</button>
@@ -114,15 +185,24 @@ button{
     <button class="equalbutton">=</button>
     </div>
 
+<footer class="site-footer">
+  <p>
+    © <span id="year"></span> Moolchand Vishwakarma. All Rights Reserved.
+  </p>
+</footer>
+
+
 
 <script>
-let input = document.getElementById('inputbox')
-let button = document.querySelectorAll('button')
+let input = document.getElementById('inputbox');
+let buttons = document.querySelectorAll('button');
 
 let string = "";
-let arr = Array.from(button);
-arr.forEach(button => {
-    button.addEventListener('click',(e) =>{
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+
+        let value = e.target.innerHTML;
         if(e.target.innerHTML == '='){
             string = eval(string);
             input.value = string;
@@ -132,7 +212,7 @@ arr.forEach(button => {
             input.value = string
         }
         else if(e.target.innerHTML =='DEL'){
-            string = string.substring(0, string.length-1);
+            string = string.slice(0, string.length-1);
             input.value = string;
         }
         else{
@@ -140,11 +220,9 @@ arr.forEach(button => {
             input.value = string;
         }   
 })
-
 })
-
+document.getElementById("year").innerText = new Date().getFullYear();
 </script>
  
 </body>
-
 </html>
